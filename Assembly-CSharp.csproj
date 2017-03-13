@@ -48,6 +48,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Camera\CameraPivot.cs" />
      <Compile Include="Assets\Scripts\Camera\FreeCamera.cs" />
+     <Compile Include="Assets\Scripts\Fire\FireBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Projectile\CollisionBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Projectile\ShootProjectile.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />

@@ -24,7 +24,7 @@ public class FreeCamera : MonoBehaviour
 
     void Start()
     {
-        camera_offset = transform.position;
+        camera_offset = new Vector3(0f, 0f, 0f);
         model_offset = transform.position;
         rotation_y_offset = transform.rotation.eulerAngles.x;
         
@@ -33,12 +33,11 @@ public class FreeCamera : MonoBehaviour
 
     void LateUpdate()
     {
-
         if (Input.GetAxis("Mouse ScrollWheel") < 0 && zoom_instance == 0)
         {
             transform.rotation = Quaternion.Euler(rotation_y_offset, rotation_x_offset, 0f);
 
-            camera_offset = model_offset + new Vector3(0f, 0f, -2f);
+            camera_offset = new Vector3(0f, 0f, -2f);
             zoom_instance = 1;
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && zoom_instance < 255)
@@ -51,7 +50,7 @@ public class FreeCamera : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(rotation_y_firstperson, rotation_x_offset, 0f);
 
-            camera_offset = model_offset;
+            camera_offset = new Vector3(0f, 0f, 0f);
             //transform.position = model_offset;
             zoom_instance = 0;
         }
