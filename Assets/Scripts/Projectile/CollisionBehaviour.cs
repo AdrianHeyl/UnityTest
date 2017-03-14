@@ -117,11 +117,17 @@ public class CollisionBehaviour : MonoBehaviour {
 
                 gameObject.GetComponent<Rigidbody>().velocity *= 0.1f;
                 gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0f, 600f * gameObject.GetComponent<Rigidbody>().mass, 0f));
-                
+
+                Vector3 ray = gameObject.transform.position - Camera.main.transform.position;
+                ray.Normalize();
+
                 light.range = range;
                 light.intensity = intensity;
-                light.color = Color.white;
                 white = Mathf.Lerp(2f, 0f, (Camera.main.transform.position - gameObject.transform.position).magnitude / 20f);
+                Debug.Log(white);
+                white *= Vector3.Dot(Camera.main.transform.forward, ray);
+                Debug.Log(white);
+                light.color = Color.white;
                 radiating = true;
 
                 dead = true;
