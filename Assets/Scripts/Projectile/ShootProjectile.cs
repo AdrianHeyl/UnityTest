@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootProjectile : MonoBehaviour {
-
-    public Camera camera;
+    
     public GameObject projectileSource;
     public float spawnOffset;
 
@@ -30,7 +29,7 @@ public class ShootProjectile : MonoBehaviour {
             if (time >= timePerShot)
             {
                 RaycastHit hit;
-                Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 Physics.Raycast(ray, out hit);
 
                 ray.direction.Normalize();

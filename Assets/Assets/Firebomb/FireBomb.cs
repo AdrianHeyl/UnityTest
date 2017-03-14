@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.ImageEffects;
 
-public class CollisionBehaviour : MonoBehaviour {
+public class FireBomb : MonoBehaviour {
     
     public GameObject fireSource;
     public float fireLifetime;
@@ -105,8 +105,7 @@ public class CollisionBehaviour : MonoBehaviour {
 
                 GameObject fire = Instantiate(fireSource, gameObject.transform.position, fireSource.transform.rotation);
                 fire.GetComponent<ParticleSystem>().Play();
-
-                //light = gameObject.GetComponentInChildren<Light>();
+                
                 light.intensity = 0f;
 
                 dead = true;
@@ -120,13 +119,10 @@ public class CollisionBehaviour : MonoBehaviour {
 
                 Vector3 ray = gameObject.transform.position - Camera.main.transform.position;
                 ray.Normalize();
+                white = Mathf.Lerp(2f, 0f, (Camera.main.transform.position - gameObject.transform.position).magnitude / 20f) * Vector3.Dot(Camera.main.transform.forward, ray);
 
                 light.range = range;
                 light.intensity = intensity;
-                white = Mathf.Lerp(2f, 0f, (Camera.main.transform.position - gameObject.transform.position).magnitude / 20f);
-                Debug.Log(white);
-                white *= Vector3.Dot(Camera.main.transform.forward, ray);
-                Debug.Log(white);
                 light.color = Color.white;
                 radiating = true;
 
