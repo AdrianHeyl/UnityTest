@@ -26,7 +26,7 @@ public class FreeCamera : MonoBehaviour
     {
         camera_offset = new Vector3(0f, 0f, 0f);
         model_offset = transform.position;
-        rotation_y_offset = transform.rotation.eulerAngles.x;
+        //rotation_y_offset = transform.rotation.eulerAngles.x;
         
         zoom_instance = 0;
     }
@@ -35,7 +35,7 @@ public class FreeCamera : MonoBehaviour
     {
         if (Input.GetAxis("Mouse ScrollWheel") < 0 && zoom_instance == 0)
         {
-            transform.rotation = Quaternion.Euler(rotation_y_offset, rotation_x_offset, 0f);
+            //transform.rotation = Quaternion.Euler(rotation_y_offset, rotation_x_offset, 0f);
 
             camera_offset = new Vector3(0f, 0f, -2f);
             zoom_instance = 1;
@@ -48,7 +48,7 @@ public class FreeCamera : MonoBehaviour
         }
         else if (Input.GetAxis("Mouse ScrollWheel") > 0 && zoom_instance == 1)
         {
-            transform.rotation = Quaternion.Euler(rotation_y_firstperson, rotation_x_offset, 0f);
+            //transform.rotation = Quaternion.Euler(rotation_y_firstperson, rotation_x_offset, 0f);
 
             camera_offset = new Vector3(0f, 0f, 0f);
             //transform.position = model_offset;
@@ -67,7 +67,7 @@ public class FreeCamera : MonoBehaviour
 
             float y = Input.GetAxis("Mouse Y");
 
-            transform.rotation = Quaternion.Euler(y * rotation_y_scale, x * rotation_x_scale, 0f);
+            //transform.rotation = Quaternion.Euler(y * rotation_y_scale, x * rotation_x_scale, 0f);
             //transform.RotateAround(target.position + model_offset, Vector3.up, x * rotation_x_scale);
             //transform.RotateAround(target.position + model_offset, Vector3.right, y * rotation_y_scale);
         }
@@ -80,7 +80,7 @@ public class FreeCamera : MonoBehaviour
         }
 
         //camera_offset = Quaternion.AngleAxis(transform.rotation.eulerAngles.y - target.rotation.eulerAngles.y, Vector3.up) * camera_offset;
-        transform.position = target.position + model_offset + camera_offset;
+        //transform.position = target.position + model_offset + camera_offset;
     }
 
     public void resetRotationX()

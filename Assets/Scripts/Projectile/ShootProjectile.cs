@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShootProjectile : MonoBehaviour {
 
+    public Camera camera;
     public GameObject projectileSource;
     public float spawnOffset;
 
@@ -28,8 +29,14 @@ public class ShootProjectile : MonoBehaviour {
         {
             if (time >= timePerShot)
             {
+                RaycastHit hit;
+                Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+                Physics.Raycast(ray, out hit);
+
+                ray.direction.Normalize();
+
                 GameObject projectile = Instantiate(projectileSource, transform.position + spawnOffset * transform.forward, transform.rotation);
-                projectile.GetComponent<Rigidbody>().AddForce(transform.forward * force);
+                projectile.GetComponent<Rigidbody>().AddForce(ray.direction * force);
                 Destroy(projectile.gameObject, lifeTime);
                 time = time % timePerShot;
             }

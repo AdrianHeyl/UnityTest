@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.ImageEffects;
 
 public class CollisionBehaviour : MonoBehaviour {
-
+    
     public GameObject fireSource;
     public float fireLifetime;
     public float projectileLifetime;
@@ -18,18 +19,25 @@ public class CollisionBehaviour : MonoBehaviour {
     private float intensityLerp;
     private float time;
 
+    private ScreenOverlay overlay;
+    private float white;
+
 	// Use this for initialization
 	void Start ()
     {
         light = gameObject.GetComponentInChildren<Light>();
         dead = false;
         radiating = false;
-        range = 50f;
+        range = 40f;
         rangeLerp = Mathf.Pow(range, 1f / 7f) * 7f;
         intensity = 8f;
         intensityLerp = Mathf.Pow(intensity, 1f / 7f) * 7f;
         time = 0f;
-	}
+
+        overlay = Camera.main.GetComponent<ScreenOverlay>();
+        white = 0f;
+        overlay.intensity = white;
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -45,6 +53,11 @@ public class CollisionBehaviour : MonoBehaviour {
             */
             float lerp = Mathf.Min(Mathf.Lerp(intensityLerp, 0f, t), intensity);
             light.intensity = Mathf.Pow(lerp, 7f);
+
+            float f1 = Mathf.Max(white - Mathf.Pow(2, t - 1), 0f);
+            //float f2 = Mathf.Lerp(white / 2, 0f, t / 5f);
+            float f2 = Mathf.Max(white / (t / 1f) - white / 3, 0f);
+            overlay.intensity = f1 + f2;
         }
 	}
 
@@ -56,9 +69,9 @@ public class CollisionBehaviour : MonoBehaviour {
         }
 
         switch (collision.collider.tag)
-        {
+        {/*
             case "Terrain":
-
+                
                 Debug.Log("TERRAIN!");
 
                 GameObject fire = Instantiate(fireSource, gameObject.transform.position, fireSource.transform.rotation);
@@ -68,7 +81,7 @@ public class CollisionBehaviour : MonoBehaviour {
                 light.intensity = 0f;
 
                 dead = true;
-                break;
+                break;*/
             case "Enemy":
 
                 Debug.Log("ENEMY!");
@@ -87,6 +100,17 @@ public class CollisionBehaviour : MonoBehaviour {
 
         switch (collider.tag)
         {
+            case "Terrain":
+                Debug.Log("TERRAIN!");
+
+                GameObject fire = Instantiate(fireSource, gameObject.transform.position, fireSource.transform.rotation);
+                fire.GetComponent<ParticleSystem>().Play();
+
+                //light = gameObject.GetComponentInChildren<Light>();
+                light.intensity = 0f;
+
+                dead = true;
+                break;
             case "Fire":
 
                 Debug.Log("FIRE!");
@@ -97,6 +121,7 @@ public class CollisionBehaviour : MonoBehaviour {
                 light.range = range;
                 light.intensity = intensity;
                 light.color = Color.white;
+                white = Mathf.Lerp(2f, 0f, (Camera.main.transform.position - gameObject.transform.position).magnitude / 20f);
                 radiating = true;
 
                 dead = true;
