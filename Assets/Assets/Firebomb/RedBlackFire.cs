@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBehaviour : MonoBehaviour {
+public class RedBlackFire : MonoBehaviour {
     
     public float lifeTime;
     private float time;

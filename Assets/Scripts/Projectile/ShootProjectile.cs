@@ -24,7 +24,7 @@ public class ShootProjectile : MonoBehaviour {
 
         time += Time.deltaTime;
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             if (time >= timePerShot)
             {
